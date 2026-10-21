@@ -1,0 +1,24 @@
+#!/bin/sh
+# Run zmkbat straight from a source checkout, without installing it.
+#
+#   ./bin/zmkbat --list
+#
+# Symlinks are resolved first, so `ln -s .../zmkbat/bin/zmkbat ~/bin/zmkbat`
+# works as expected. For a system-wide install use `pip install .` (or
+# `make install`), which creates a proper console script instead.
+set -eu
+
+script=$0
+while [ -L "$script" ]; do
+    target=$(readlink "$script")
+    case $target in
+        /*) script=$target ;;
+        *) script=$(dirname "$script")/$target ;;
+    esac
+done
+
+here=$(CDPATH= cd -- "$(dirname -- "$script")/.." && pwd)
+PYTHONPATH="$here/src${PYTHONPATH:+:$PYTHONPATH}"
+export PYTHONPATH
+
+exec python3 -m zmkbat "$@"

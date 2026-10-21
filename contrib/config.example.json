@@ -1,0 +1,15 @@
+{
+  "device": null,
+  "name_regex": "(?i)(zmk|ergohaven|\\bEH\\b|k:0|corne|sofle|lily58|kyria|ferris|totem|chocofi|piantor|voyager|glove80)",
+  "ttl": 30,
+  "low": 20,
+  "format": "text",
+  "icons": true,
+  "labels": {
+    "central": "L",
+    "peripheral": "R"
+  },
+  "connect": false,
+  "zero_means_off": true,
+  "any_battery": false
+}

@@ -1,0 +1,31 @@
+// ---------------------------------------------------------------------------
+// zmkbat — Waybar module for the charge of both halves of a ZMK split.
+//
+// Add "custom/zmkbat" to modules-right in ~/.config/waybar/config.jsonc and
+// paste the style block into ~/.config/waybar/style.css.
+//
+// The script returns JSON ({"text", "tooltip", "class"}), so Waybar can colour
+// the module by class: good / warning / critical / stale / offline.
+// ---------------------------------------------------------------------------
+
+{
+  "custom/zmkbat": {
+    "exec": "zmkbat -f waybar -t 10",
+    "return-type": "json",
+    "interval": 10,
+    "format": "KB {}",
+    "tooltip": true,
+    "on-click": "zmkbat --refresh -f text | rofi -dmenu -p battery -no-custom",
+    "on-click-right": "zmkbat --refresh -f waybar >/dev/null"
+  }
+}
+
+/* ~/.config/waybar/style.css
+
+#custom-zmkbat.good     { color: #a6e3a1; }
+#custom-zmkbat.warning  { color: #f9e2af; }
+#custom-zmkbat.critical { color: #f38ba8; }
+#custom-zmkbat.stale    { color: #6c7086; }
+#custom-zmkbat.offline  { color: #6c7086; }
+
+*/
