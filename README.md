@@ -21,9 +21,13 @@ EH K:03 v4  [F9:8F:6F:47:37:0A]  connected
   L                   ██████████ 100%
   R (Peripheral 0)    ██████████ 100%
 
-$ zmkbat -f polybar
-󰂯 L 󰁹100% R 󰁹100%
+$ zmkbat -f polybar --ascii
+L 100% R 100%
 ```
+
+With a Nerd Font installed the same line carries a Bluetooth glyph and a
+battery icon per half; `--ascii` (used in the examples here) keeps the README
+readable without one.
 
 ---
 
@@ -194,11 +198,11 @@ EH K:03 v4  [F9:8F:6F:47:37:0A]  connected
 $ zmkbat -f plain
 100 100
 
-$ zmkbat -f polybar
-󰂯 L 󰁹100% R 󰁹100%
+$ zmkbat -f polybar --ascii
+L 100% R 100%
 
-$ zmkbat -f waybar
-{"text": "L 󰁹100% R 󰁹100%", "tooltip": "...", "class": "good"}
+$ zmkbat -f waybar --ascii
+{"text": "L 100% R 100%", "tooltip": "...", "class": "good"}
 
 $ zmkbat -f json
 {
