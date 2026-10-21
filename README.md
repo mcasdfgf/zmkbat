@@ -4,6 +4,12 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
 
+> [!WARNING]
+> **This project is AI-generated.** The repository, its code, tests and
+> documentation were written and are maintained with the help of an AI
+> assistant. It is published as-is, with no warranty of any kind: read the
+> code before you rely on it, and use it at your own risk. See [LICENSE](LICENSE).
+
 Battery levels for **both halves** of a ZMK split keyboard, in the console.
 
 No tray icon, no Qt, no root. One command that prints something a status bar
@@ -74,7 +80,8 @@ including the exact D-Bus calls and the state machine, is in
 
 * Linux with BlueZ (any recent version; tested with 5.87);
 * Python 3.10 or newer;
-* `python3-dbus` — `dbus-devel` + `pip install dbus-python` also works;
+* `python3-dbus` — a system package on every distribution, or
+  `pip install 'zmkbat[dbus]'` if you have the D-Bus and GLib headers;
 * a ZMK keyboard with:
 
   ```conf
@@ -87,27 +94,43 @@ including the exact D-Bus calls and the state machine, is in
 
 ## Installation
 
+`zmkbat` talks to BlueZ through `dbus-python`, which every Linux distribution
+ships as a system package. Install that first:
+
+```sh
+sudo dnf install python3-dbus        # Fedora
+sudo apt install python3-dbus        # Debian/Ubuntu
+sudo pacman -S python-dbus           # Arch
+```
+
+Then install the tool. With pipx, let it see the system packages so it can use
+the distribution's `dbus-python`:
+
+```sh
+pipx install --system-site-packages zmkbat
+```
+
 From a checkout (recommended while the project is young):
 
 ```sh
 git clone https://github.com/mcasdfgf/zmkbat.git
 cd zmkbat
-pipx install .          # or: pip install --user .
+pipx install --system-site-packages .
+```
+
+If you prefer a fully isolated environment, build `dbus-python` inside it —
+that needs the D-Bus and GLib headers:
+
+```sh
+sudo dnf install dbus-devel glib2-devel          # Fedora
+sudo apt install libdbus-1-dev libglib2.0-dev pkg-config
+pipx install 'zmkbat[dbus]'
 ```
 
 Or run it without installing anything:
 
 ```sh
 ./bin/zmkbat --list
-```
-
-Distribution packages for `dbus-python` are usually the path of least
-resistance:
-
-```sh
-sudo dnf install python3-dbus        # Fedora
-sudo apt install python3-dbus        # Debian/Ubuntu
-sudo pacman -S python-dbus           # Arch
 ```
 
 ## Quick start
