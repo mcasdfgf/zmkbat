@@ -163,7 +163,7 @@ def test_waybar_without_devices(config):
 def test_json_structure(keyboard_factory, both_halves, config):
     payload = json.loads(format_json([keyboard_factory(both_halves)], config))
     keyboard = payload["keyboards"][0]
-    assert keyboard["address"] == "F9:8F:6F:47:37:0A"
+    assert keyboard["address"] == "F9:8F:6F:00:00:00"
     assert [half["role"] for half in keyboard["halves"]] == ["central", "peripheral"]
     assert [half["state"] for half in keyboard["halves"]] == ["ok", "ok"]
 

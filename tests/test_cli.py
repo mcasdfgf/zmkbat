@@ -137,7 +137,7 @@ def test_main_list(device_info, capsys):
     client = FakeClient([device_info])
     code = main(["--list"], client_factory=lambda: client)
     assert code == ExitCode.OK
-    assert "F9:8F:6F:47:37:0A" in capsys.readouterr().out
+    assert "F9:8F:6F:00:00:00" in capsys.readouterr().out
 
 
 def test_main_list_without_devices(capsys):

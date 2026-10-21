@@ -9,8 +9,8 @@ import pytest
 from zmkbat.bluez import DeviceInfo
 from zmkbat.model import Half, Keyboard, Role
 
-ADDRESS = "F9:8F:6F:47:37:0A"
-DEVICE_PATH = "/org/bluez/hci0/dev_F9_8F_6F_47_37_0A"
+ADDRESS = "F9:8F:6F:00:00:00"
+DEVICE_PATH = "/org/bluez/hci0/dev_F9_8F_6F_00_00_00"
 
 
 @pytest.fixture

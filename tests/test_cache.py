@@ -15,7 +15,7 @@ def test_roundtrip_through_disk(tmp_path, keyboard_factory, both_halves):
     cache.save()
 
     reloaded = Cache(path)
-    entry = reloaded.get("F9:8F:6F:47:37:0A")
+    entry = reloaded.get("F9:8F:6F:00:00:00")
     assert entry is not None
     assert entry.name == "EH K:03 v4"
     assert entry.updated == 1000
@@ -28,7 +28,7 @@ def test_roundtrip_through_disk(tmp_path, keyboard_factory, both_halves):
 def test_age_is_never_negative(tmp_path, keyboard_factory, both_halves):
     cache = Cache(tmp_path / "state.json")
     cache.put(keyboard_factory(both_halves), now=2000)
-    entry = cache.get("F9:8F:6F:47:37:0A")
+    entry = cache.get("F9:8F:6F:00:00:00")
     assert entry.age(now=2000) == 0
     assert entry.age(now=1500) == 0
     assert entry.age(now=2420) == 420
@@ -39,7 +39,7 @@ def test_disabled_cache_is_a_noop(tmp_path, keyboard_factory, both_halves):
     cache = Cache(path, enabled=False)
     cache.put(keyboard_factory(both_halves))
     cache.save()
-    assert cache.get("F9:8F:6F:47:37:0A") is None
+    assert cache.get("F9:8F:6F:00:00:00") is None
     assert not path.exists()
 
 
@@ -123,4 +123,4 @@ def test_put_copies_halves(tmp_path, keyboard_factory):
     cache = Cache(tmp_path / "state.json")
     cache.put(keyboard_factory(halves))
     halves[0].percent = 1
-    assert cache.get("F9:8F:6F:47:37:0A").halves[0].percent == 42
+    assert cache.get("F9:8F:6F:00:00:00").halves[0].percent == 42

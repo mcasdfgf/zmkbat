@@ -15,7 +15,7 @@ from zmkbat.bluez import (
     parse_devices,
 )
 
-DEVICE = "/org/bluez/hci0/dev_F9_8F_6F_47_37_0A"
+DEVICE = "/org/bluez/hci0/dev_F9_8F_6F_00_00_00"
 BAS_CENTRAL = f"{DEVICE}/service0010"
 BAS_PERIPHERAL = f"{DEVICE}/service0015"
 CHAR_CENTRAL = f"{BAS_CENTRAL}/char0011"
@@ -25,7 +25,7 @@ CCCD = "00002902-0000-1000-8000-00805f9b34fb"
 
 def device_properties(**overrides):
     properties = {
-        "Address": "F9:8F:6F:47:37:0A",
+        "Address": "F9:8F:6F:00:00:00",
         "Alias": "EH K:03 v4",
         "Connected": True,
         "Paired": True,
@@ -76,7 +76,7 @@ def object_tree(*, with_peripheral: bool = True, **device_overrides):
 def test_parse_devices_matches_by_name():
     devices = parse_devices(object_tree(), r"(?i)k:0")
     assert len(devices) == 1
-    assert devices[0].address == "F9:8F:6F:47:37:0A"
+    assert devices[0].address == "F9:8F:6F:00:00:00"
     assert devices[0].matches_name is True
     assert devices[0].has_battery_service is True
 
@@ -144,12 +144,12 @@ def test_battery_characteristics_ignores_other_devices():
 
 def test_battery_characteristics_ignores_other_services():
     tree = object_tree()
-    tree["/org/bluez/hci0/dev_F9_8F_6F_47_37_0A/service0099"] = {
+    tree["/org/bluez/hci0/dev_F9_8F_6F_00_00_00/service0099"] = {
         "org.bluez.GattService1": {"Device": DEVICE, "UUID": "00001812-0000-1000-8000-00805f9b34fb"}
     }
-    tree["/org/bluez/hci0/dev_F9_8F_6F_47_37_0A/service0099/char009a"] = {
+    tree["/org/bluez/hci0/dev_F9_8F_6F_00_00_00/service0099/char009a"] = {
         "org.bluez.GattCharacteristic1": {
-            "Service": "/org/bluez/hci0/dev_F9_8F_6F_47_37_0A/service0099",
+            "Service": "/org/bluez/hci0/dev_F9_8F_6F_00_00_00/service0099",
             "UUID": BATTERY_LEVEL_UUID,
         }
     }
@@ -164,5 +164,5 @@ def test_describe_devices_renders_a_table():
     table = describe_devices(devices)
     lines = table.splitlines()
     assert lines[0].startswith("ADDRESS")
-    assert "F9:8F:6F:47:37:0A" in lines[1]
+    assert "F9:8F:6F:00:00:00" in lines[1]
     assert lines[1].rstrip().endswith("*")

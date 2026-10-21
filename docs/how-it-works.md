@@ -49,7 +49,7 @@ characteristics, and it is exactly what
 BlueZ mirrors the GATT tree as D-Bus objects under the device path:
 
 ```
-/org/bluez/hci0/dev_F9_8F_6F_47_37_0A
+/org/bluez/hci0/dev_F9_8F_6F_00_00_00
 ├── org.bluez.Device1
 ├── /service0010
 │   ├── org.bluez.GattService1        UUID=0000180f-...
