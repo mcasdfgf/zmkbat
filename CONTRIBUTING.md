@@ -12,12 +12,15 @@ python3 -m venv .venv
 pip install -e '.[dev]'
 ```
 
-`dbus-python` needs the D-Bus headers to build:
+`dbus-python` needs the D-Bus and GLib headers to build:
 
 ```sh
-sudo dnf install dbus-devel        # Fedora
-sudo apt install libdbus-1-dev    # Debian/Ubuntu
+sudo dnf install dbus-devel glib2-devel                          # Fedora
+sudo apt install libdbus-1-dev libglib2.0-dev pkg-config         # Debian/Ubuntu
 ```
+
+If you already have the distribution's `python3-dbus`, create the virtualenv
+with `--system-site-packages` and install with `pip install -e .` instead.
 
 ## Before opening a pull request
 

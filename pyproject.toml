@@ -25,10 +25,14 @@ classifiers = [
     "Topic :: System :: Hardware",
     "Topic :: Utilities",
 ]
-dependencies = ["dbus-python>=1.2.16"]
+# dbus-python is deliberately an extra: it is a system package on every Linux
+# distribution, and building it from source needs the D-Bus and GLib headers.
+# Install it with your package manager (python3-dbus) or with `zmkbat[dbus]`.
+dependencies = []
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "ruff>=0.6"]
+dbus = ["dbus-python>=1.2.16"]
+dev = ["pytest>=8", "ruff>=0.6", "dbus-python>=1.2.16"]
 
 [project.scripts]
 zmkbat = "zmkbat.cli:main"
